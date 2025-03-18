@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: nextcloud
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    image: nextcloud:latest
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
